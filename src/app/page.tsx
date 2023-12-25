@@ -1,14 +1,17 @@
 "use client";
 
+import CircleColor from "@/components/CircleColor";
 import ErrorMsg from "@/components/ErrorMsg";
+import MySelect from "@/components/MySelect";
 import ProductList from "@/components/ProductList";
 import Button from "@/components/ui/Button";
 import MyInput from "@/components/ui/MyInput";
 import MyModal from "@/components/ui/MyModal";
-import { formInputsList } from "@/data";
+import { categories, colors, formInputsList, productList } from "@/data";
 import { IProduct } from "@/interfaces";
 import { productValidation } from "@/validation";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const emptyProductObject = {
   title: "",
@@ -21,19 +24,25 @@ const emptyProductObject = {
   },
   colors: [],
 };
+const emptyErrorObject = {
+  title: "",
+  description: "",
+  imageURL: "",
+  price: "",
+};
 
 export default function Home() {
   /* ========= State ========== */
+  const [products, setProducts] = useState<IProduct[]>(productList);
   const [product, setProduct] = useState<IProduct>(emptyProductObject);
 
-  const [errors, setErrors] = useState({
-    title: "",
-    description: "",
-    imageURL: "",
-    price: "",
-  });
+  const [errors, setErrors] = useState(emptyErrorObject);
+  const [tempColors, setTempColors] = useState<string[]>([]);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+
+  console.log(tempColors);
 
   /* ========= Handlers ========== */
   const closeModal = () => setIsOpen(false);
@@ -48,26 +57,43 @@ export default function Home() {
 
   const cancelHandler = () => {
     setProduct(emptyProductObject);
+    setErrors(emptyErrorObject);
     closeModal();
   };
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const validationErrors = productValidation(product);
+    const validationErrors = productValidation({
+      title: product.title,
+      description: product.description,
+      imageURL: product.imageURL,
+      price: product.price,
+    });
 
     const hasError =
       Object.values(validationErrors).every((value) => value === "") &&
       Object.values(validationErrors).some((value) => value === "");
 
-    setErrors(validationErrors);
+    // console.log(validationErrors);
 
     if (!hasError) {
+      setErrors(validationErrors);
       return;
     }
 
+    setProducts([
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
+      ...products,
+    ]);
+    setTempColors([]);
+    setSelectedCategory(categories[0]);
     cancelHandler();
-    console.log(product);
   };
 
   return (
@@ -77,6 +103,7 @@ export default function Home() {
       </Button>
       <MyModal isOpen={isOpen} closeModal={closeModal} title="Modal Title">
         <form onSubmit={submitHandler}>
+          {/* Form Inputs */}
           {formInputsList.map((input) => (
             <div className="flex flex-col mb-2" key={input.id}>
               <label className="mb-2 text-sm font-semibold" htmlFor={input.id}>
@@ -93,6 +120,46 @@ export default function Home() {
               <ErrorMsg msg={errors[input.name]} />
             </div>
           ))}
+
+          <MySelect
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
+
+          {/* Colors */}
+          <div className="flex items-center gap-1 mt-4">
+            {colors.map((color) => (
+              <CircleColor
+                key={color}
+                color={color}
+                onClick={() => {
+                  if (tempColors.includes(color)) {
+                    setTempColors(tempColors.filter((c) => c !== color));
+                    return;
+                  }
+                  setTempColors([...tempColors, color]);
+                  setProduct({ ...product, colors: [...tempColors, color] });
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Selected Colors */}
+          {tempColors.length ? (
+            <div className="flex items-center gap-1 mt-4">
+              {tempColors.map((color) => (
+                <span
+                  className="p-1 rounded-md text-white"
+                  style={{ backgroundColor: color }}
+                  key={color}
+                >
+                  {color}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          {/* Buttons */}
           <div className="mt-4 flex items-center space-x-2">
             <Button intent={"primary"} fullWidth>
               Submit
@@ -108,7 +175,7 @@ export default function Home() {
           </div>
         </form>
       </MyModal>
-      <ProductList />
+      <ProductList products={products} />
     </main>
   );
 }

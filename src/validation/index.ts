@@ -4,16 +4,31 @@ export const productValidation = (product: {
   imageURL: string;
   price: string;
 }) => {
-  const errors = {
+  const errors: {
+    title: string;
+    description: string;
+    imageURL: string;
+    price: string;
+  } = {
     title: "",
     description: "",
     imageURL: "",
     price: "",
   };
 
-  const validImageUrl = product.imageURL.match(
-    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-  );
+  function isValidHttpUrl(string: string) {
+    let url;
+
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  const validImageUrl = isValidHttpUrl(product.imageURL);
 
   if (
     !product.title.trim() ||
@@ -30,7 +45,7 @@ export const productValidation = (product: {
     errors.description = "description is between 3 and 50 characters";
   }
 
-  if (!product.price.trim() || !validImageUrl) {
+  if (!product.imageURL.trim() || !validImageUrl) {
     errors.imageURL = "image URL is not valid";
   }
   if (!product.price.trim() || isNaN(Number(product.price))) {

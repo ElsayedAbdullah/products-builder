@@ -5,6 +5,7 @@ import ButtonGroup from "./ButtonGroup";
 import Button from "./ui/Button";
 import SharedImage from "./ui/SharedImage";
 import { textSlicer } from "@/utils";
+import CircleColor from "./CircleColor";
 
 interface IProps {
   product: IProduct;
@@ -27,9 +28,15 @@ const ProductCard = ({ product }: IProps) => {
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <span className="bg-purple-600 w-5 h-5 rounded-full"></span>
-        <span className="bg-green-600 w-5 h-5 rounded-full"></span>
-        <span className="bg-blue-600 w-5 h-5 rounded-full"></span>
+        {product.colors.length ? (
+          <>
+            {product.colors.map((color) => (
+              <CircleColor key={color} color={color} />
+            ))}
+          </>
+        ) : (
+          <p className="text-gray-400">No colors...</p>
+        )}
       </div>
       <div className="flex items-center justify-between">
         <p className="font-semibold text-indigo-800">${product.price}</p>
