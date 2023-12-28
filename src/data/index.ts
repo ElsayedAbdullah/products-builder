@@ -16,7 +16,6 @@ export const productList: IProduct[] = [
       "#3C2A21",
       "#CB1C8D",
       "#645CBB",
-      "#FF0032",
       "#820000",
       "#13005A",
       "#1F8A70",
@@ -36,7 +35,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "500000",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#2563eb", "#FF6E31"],
     category: {
       name: "Cars",
       imageURL:
@@ -51,7 +50,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "120000",
-    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000"],
     category: {
       name: "Cars",
       imageURL:
@@ -87,7 +86,6 @@ export const productList: IProduct[] = [
       "#3C2A21",
       "#CB1C8D",
       "#645CBB",
-      "#FF0032",
       "#820000",
       "#13005A",
       "#1F8A70",
@@ -107,7 +105,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "500000",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#2563eb", "#FF6E31"],
     category: {
       name: "Cars",
       imageURL:
@@ -122,7 +120,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     price: "120000",
-    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000", "#FF0032"],
+    colors: ["#A31ACB", "#3C2A21", "#1F8A70", "#820000"],
     category: {
       name: "Cars",
       imageURL:

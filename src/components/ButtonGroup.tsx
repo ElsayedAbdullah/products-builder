@@ -6,9 +6,7 @@ interface IProps {
 
 const ButtonGroup = ({ children }: IProps) => {
   return (
-    <div className="mt-auto flex items-center justify-between gap-4">
-      {children}
-    </div>
+    <div className="flex items-center justify-between gap-4">{children}</div>
   );
 };
 

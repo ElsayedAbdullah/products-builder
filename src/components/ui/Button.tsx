@@ -2,12 +2,12 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const button = cva(
-  "rounded-lg flex items-center text-white gap-3 justify-center duration-300",
+  "rounded-lg flex items-center text-white font-medium gap-3 justify-center duration-300",
   {
     variants: {
       intent: {
         primary: ["bg-indigo-500", "hover:bg-indigo-600"],
-        secondary: ["bg-slate-400", "hover:bg-slate-500"],
+        secondary: ["bg-[#eaeaeb]", "hover:bg-[#d8d6d6] text-black"],
         destructive: ["bg-red-500", "hover:bg-red-600"],
       },
       size: {

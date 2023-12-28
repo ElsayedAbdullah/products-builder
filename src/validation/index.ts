@@ -40,9 +40,9 @@ export const productValidation = (product: {
   if (
     !product.description.trim() ||
     product.description.length < 3 ||
-    product.description.length > 50
+    product.description.length > 800
   ) {
-    errors.description = "description is between 3 and 50 characters";
+    errors.description = "description is between 3 and 800 characters";
   }
 
   if (!product.imageURL.trim() || !validImageUrl) {

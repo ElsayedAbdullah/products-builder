@@ -4,6 +4,7 @@ import { Fragment } from "react";
 interface IProps {
   children: React.ReactNode;
   title?: string;
+  description?: string;
   isOpen: boolean;
   closeModal: () => void;
 }
@@ -12,12 +13,14 @@ export default function MyModal({
   isOpen,
   closeModal,
   title,
+  description,
   children,
 }: IProps) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -47,8 +50,12 @@ export default function MyModal({
                       as="h3"
                       className="text-xl font-bold leading-6 text-gray-900 mb-5"
                     >
-                      Payment successful
+                      {title}
                     </Dialog.Title>
+                  )}
+
+                  {description && (
+                    <Dialog.Description>{description}</Dialog.Description>
                   )}
                   <div className="mt-2">{children}</div>
                 </Dialog.Panel>
